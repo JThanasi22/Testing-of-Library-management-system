@@ -16,7 +16,7 @@ public class Database {
         /**
          * Database Configuration variables
          */
-        private String dbName = "LibraryDB";
+        private String dbName = "librarydb";
         private String dbUsername = "root";
         private String dbPassword = ""; 
         
@@ -24,17 +24,29 @@ public class Database {
         public String getTableName(){
             return null;
         }
-        
-	
-	public Database() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName, dbUsername, dbPassword);
-			statement = connection.createStatement();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
+
+    public Database() {
+        try {
+            // Establish the connection using DriverManager
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/" + dbName + "?useSSL=false&serverTimezone=UTC", dbUsername, dbPassword);
+
+            // Check if the connection was successful
+            if (connection != null) {
+                System.out.println("Connected to the database successfully!");
+                statement = connection.createStatement();
+            } else {
+                System.out.println("Failed to connect to the database.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL error: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
         
         /**
          * Get the database connection
