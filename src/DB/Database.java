@@ -28,6 +28,8 @@ public class Database {
 
     public Database() {
         try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
             // Establish the connection using DriverManager
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + dbName + "?useSSL=false&serverTimezone=UTC", dbUsername, dbPassword);
@@ -42,8 +44,9 @@ public class Database {
         } catch (SQLException e) {
             System.err.println("SQL error: " + e.getMessage());
             e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("MySQL JDBC Driver not found");
             e.printStackTrace();
         }
     }

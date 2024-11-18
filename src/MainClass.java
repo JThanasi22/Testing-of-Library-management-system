@@ -17,8 +17,8 @@ public class MainClass {
      */
     public static void main(String[] args) {
         System.out.println("Displaying the login form");
-//        MainFrame myFrame = new MainFrame();
-//        myFrame.init();
+        //MainFrame myFrame = new MainFrame();
+        //myFrame.init();
         LoginForm welcome = new LoginForm();
         welcome.setVisible(true);
     }
