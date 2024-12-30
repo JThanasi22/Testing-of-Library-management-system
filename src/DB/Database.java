@@ -1,5 +1,4 @@
 package DB;
-//java class to connect to sql and build quaries
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ public class Database {
 	private Connection connection;
 	private Statement statement;
 	private ResultSet resultSet;
+    private String qu;
         
         /**
          * Database Configuration variables
@@ -28,13 +28,13 @@ public class Database {
 
     public Database() {
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             Class.forName("com.mysql.cj.jdbc.Driver");
-            // Establish the connection using DriverManager
+
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + dbName + "?useSSL=false&serverTimezone=UTC", dbUsername, dbPassword);
 
-            // Check if the connection was successful
             if (connection != null) {
                 System.out.println("Connected to the database successfully!");
                 statement = connection.createStatement();
@@ -51,19 +51,14 @@ public class Database {
         }
     }
         
-        /**
-         * Get the database connection
-         * @return 
-         */
+
         public Connection getConnection() {		
 		return connection;
-		
 	}
-        /**
-         * Run the provided query and get resultSet object
-         * @param queary
-         * @return 
-         */
+    public Statement getStatement() {
+        return statement;
+    }
+
         public ResultSet runQueary(String queary) {
 		try {
 			resultSet = statement.executeQuery(queary);			
@@ -73,11 +68,7 @@ public class Database {
 		return resultSet;
 	}
         
-        /**
-         * Run the provided query and provide results as an array 
-         * @param query
-         * @return 
-         */
+
         public List getData(String query) {
 		List data = new ArrayList();
 		try {
@@ -97,8 +88,7 @@ public class Database {
 		return data;
 	}
         /**
-         * Run provided insert query 
-         * @param query 
+         * Run provided insert query
          */
         public void insertData(String query) {
 		try {
@@ -109,10 +99,7 @@ public class Database {
 		}
 	}
         
-        /**
-         * Insert data
-         * @param data Map variable containing column and value
-         */
+
         public void insert(Map<String,String> data){
             String cols = "";
             String values = "";
@@ -125,15 +112,16 @@ public class Database {
             }
             cols = cols.substring(0, cols.length() - 1);
             values = values.substring(0, values.length() - 1);
-            String qu = "INSERT INTO `"+this.getTableName()+"` ( "+cols+" ) VALUES ( "+values+" )";
+            qu = "INSERT INTO `"+this.getTableName()+"`("+cols+") VALUES ("+values+")";
             
             this.insertData(qu);
         }
+
+    public String getLastQuery() {
+        return qu;
+    }
         
-        /**
-         * Update data
-         * @param data Map variable containing column and value
-         */
+
         public void update(Map<String,String> data, int id){
             String cols = "";
             for(String col : data.keySet()){
@@ -144,7 +132,7 @@ public class Database {
                               
             }
             cols = cols.substring(0, cols.length() - 1);
-            String qu = "UPDATE `"+this.getTableName()+"` SET "+cols+"  WHERE `id` =  "+id+";";
+            qu = "UPDATE `"+this.getTableName()+"` SET "+cols+" WHERE `id` = "+id+";";
             
             this.insertData(qu);
         }
@@ -154,22 +142,15 @@ public class Database {
          */
         public void delete(int id){
             
-            String qu = "DELETE FROM `"+this.getTableName()+"` WHERE `id` =  "+id+";";            
+            qu = "DELETE FROM `"+this.getTableName()+"` WHERE `id` =  "+id+";";
             this.insertData(qu);
         }
-        
-        /**
-         * Select and get data
-         * @param query 
-         */
+
         public List get(String query ){
             query = "Select * FROM `"+this.getTableName()+"` WHERE "+query+";";
             return this.getData(query);
         }       
-        /**
-         * Select and get data
-         * @param query 
-         */
+
         public ResultSet getResultSet(String query ){
             query = "Select * FROM `"+this.getTableName()+"` WHERE "+query+";";
             
