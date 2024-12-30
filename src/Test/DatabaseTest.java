@@ -22,7 +22,7 @@ class DatabaseTest {
     private static final String MOCK_DB_PASSWORD = "testPassword";
 
     @Test
-    void testDatabaseConstructor() {
+    void testDatabase() {
         try (MockedStatic<Class> classMock = Mockito.mockStatic(Class.class);
              MockedStatic<DriverManager> driverManagerMock = Mockito.mockStatic(DriverManager.class)) {
 
@@ -53,7 +53,7 @@ class DatabaseTest {
     }
 
     @Test
-    void testDatabaseConstructorSQLException() {
+    void testSQLException() {
         try (MockedStatic<Class> classMock = Mockito.mockStatic(Class.class);
              MockedStatic<DriverManager> driverManagerMock = Mockito.mockStatic(DriverManager.class)) {
 
@@ -74,7 +74,7 @@ class DatabaseTest {
     }
 
     @Test
-    void testDatabaseConstructorClassNotFoundException() {
+    void testClassNotFoundException() {
         try (MockedStatic<Class> classMock = Mockito.mockStatic(Class.class)) {
 
             classMock.when(() -> Class.forName("com.mysql.cj.jdbc.Driver"))
@@ -93,7 +93,7 @@ class DatabaseTest {
     }
 
     @Test
-    void testDatabaseConstructorNullConnection() {
+    void testNullConnection() {
         try (MockedStatic<Class> classMock = Mockito.mockStatic(Class.class);
              MockedStatic<DriverManager> driverManagerMock = Mockito.mockStatic(DriverManager.class)) {
 
