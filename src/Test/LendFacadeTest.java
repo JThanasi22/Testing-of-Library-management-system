@@ -15,7 +15,7 @@ class LendFacadeTest {
     }
 
     @Test
-    void lendBook_FailureBookId() {
+    void lendBook_Failure_BookId() {
         int bookId = -1;
         int userId = 1;
 
@@ -24,7 +24,7 @@ class LendFacadeTest {
     }
 
     @Test
-    void lendBook_FailureUserID() {
+    void lendBook_Failure_UserID() {
         int bookId = 1;
         int userId = -1;
 
@@ -33,7 +33,7 @@ class LendFacadeTest {
     }
 
     @Test
-    void lendBook_FailureBoth() {
+    void lendBook_Failure_Both() {
         int bookId = -1;
         int userId = -1;
 
@@ -59,7 +59,7 @@ class LendFacadeTest {
     }
 
     @Test
-    void returnBook_UnlentBook() {
+    void returnBook_Unlent_Book() {
         int bookId = 2;
 
         Exception exception = assertThrows(Exception.class, () -> LendFacade.returnBook(bookId));
