@@ -1,5 +1,3 @@
-package Test; 
-
 import DB.Users;
 import UI.RegisterForm;
 import org.junit.jupiter.api.Test;
@@ -70,7 +68,7 @@ class UsersTest {
     public void testPasswordHashCorrect() {
         String password = "testPassword123";
         String expectedHash = "a83fd3dbcde693af1f000650fe01f9ad"; 
-        String actualHash = Users.passwordHash(password);
+        String actualHash = new Users().passwordHash(password);
 
         assertEquals(expectedHash, actualHash, "The hashed password doesn't match the expected value.");
     }
@@ -79,8 +77,8 @@ class UsersTest {
     public void testPasswordHashWrong() {
         String password = "testPassword123";
         String expectedWrongHash = "wrongExpectedHash"; 
-        String actualHash = Users.passwordHash(password);
+        String actualHash = new Users().passwordHash(password);
 
         assertNotEquals(expectedWrongHash, actualHash, "The hashed password unexpectedly matches the wrong expected value.");
-    }
+}
 }

@@ -1,5 +1,3 @@
-package Test;
-
 import DB.Database;
 import org.junit.jupiter.api.*;
 import org.mockito.MockedStatic;

@@ -1,5 +1,3 @@
-package Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 import DB.LendFacade;
 import org.junit.jupiter.api.Test;
