@@ -125,7 +125,7 @@ class DatabaseTest {
         data.put("name", "John");
         Database db = new Database();
         db.insert(data);
-        String expectedQuery = "INSERT INTO`" + db.getTableName() + "`(`name`) VALUES ('John')";
+        String expectedQuery = "INSERT INTO `" + db.getTableName() + "`(`name`) VALUES ('John')";
         assertEquals(expectedQuery, db.getLastQuery());
     }
 
