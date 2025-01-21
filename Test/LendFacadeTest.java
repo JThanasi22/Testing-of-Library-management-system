@@ -1,6 +1,9 @@
 import static org.junit.jupiter.api.Assertions.*;
 import DB.LendFacade;
+import DB.Database;
 import org.junit.jupiter.api.Test;
+
+import java.sql.ResultSet;
 
 class LendFacadeTest {
 
@@ -37,6 +40,15 @@ class LendFacadeTest {
 
         Exception exception = assertThrows(Exception.class, () -> LendFacade.lendBook(bookId, userId));
         assertEquals("Invalid book ID and user ID", exception.getMessage());
+    }
+
+    @Test
+    public void testLendBook_DuplicateLend() {
+        int bookId = 1;
+        int userId = 1;
+        LendFacade.lendBook(bookId, userId);
+        Exception exception = assertThrows(IllegalStateException.class, () -> LendFacade.lendBook(bookId, userId));
+        assertEquals("Book is already lent.", exception.getMessage());
     }
 
     @Test
