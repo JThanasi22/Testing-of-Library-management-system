@@ -226,7 +226,7 @@ public class LendBook extends javax.swing.JFrame {
         this.search();
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void lendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lendButtonActionPerformed
+    public void lendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lendButtonActionPerformed
         String selectedValue = this.memberList.getSelectedValue();
         if(selectedValue == null){
             JOptionPane.showMessageDialog(null, "Select a member to lend the book first.","Error",JOptionPane.ERROR_MESSAGE);
@@ -302,18 +302,18 @@ public class LendBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel infoLabel;
+    public javax.swing.JButton cancelButton;
+    public javax.swing.JLabel infoLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton lendButton;
     private javax.swing.JLabel lendingTitleLabel;
-    private javax.swing.JList<String> memberList;
+    public javax.swing.JList<String> memberList;
     private javax.swing.JButton searchButton;
-    private javax.swing.JTextField searchByMemberIdInput;
+    public javax.swing.JTextField searchByMemberIdInput;
     private javax.swing.JLabel searchByMemberIdLabel;
-    private javax.swing.JTextField searchByNameInput;
+    public javax.swing.JTextField searchByNameInput;
     private javax.swing.JLabel searchByNameLabel;
     // End of variables declaration//GEN-END:variables
 }
