@@ -13,7 +13,6 @@ public class BooksTest {
 
     @Test
     public void testBooksGetTableName() {
-        // Test that the Books class returns the correct table name
         assertEquals("books", books.getTableName(), "Should return 'books' as the table name");
     }
 }
