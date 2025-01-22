@@ -25,10 +25,10 @@ public class MemberDetails extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    private Map memberData = new HashMap<String, String>();
+    public Map memberData = new HashMap<String, String>();
     
-    private String mode;
-    private int memberID;
+    public String mode;
+    public int memberID;
     /**
      * Set the form mode to new or update
      * @param Mode 
@@ -69,7 +69,6 @@ public class MemberDetails extends javax.swing.JFrame {
             }            
         }
         this.memberID = result.getInt("id");
-        
     }
 
     /**
@@ -439,7 +438,7 @@ public class MemberDetails extends javax.swing.JFrame {
         members.update(memberData,this.memberID);
         JOptionPane.showMessageDialog(null, "Member updated successfully");
     }
-    private void backToHomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToHomeButtonActionPerformed
+    public void backToHomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToHomeButtonActionPerformed
         ManageMembers manageMembers = new ManageMembers();
         manageMembers.setVisible(true);
         this.dispose();
@@ -453,7 +452,7 @@ public class MemberDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nicTypeRadioActionPerformed
 
-    private void deleteMemberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMemberButtonActionPerformed
+    public void deleteMemberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMemberButtonActionPerformed
         int input = JOptionPane.showConfirmDialog(null, "Do you want to Delete this member?");
         // 0=yes, 1=no, 2=cancel
         if(input == 0){
@@ -505,31 +504,31 @@ public class MemberDetails extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressInput;
     private javax.swing.JLabel addressLabel;
-    private javax.swing.JButton backToHomeButton;
-    private javax.swing.JFormattedTextField birthdayInput;
+    public javax.swing.JButton backToHomeButton;
+    public javax.swing.JFormattedTextField birthdayInput;
     private javax.swing.JLabel birthdayLabel;
-    private javax.swing.JButton deleteMemberButton;
-    private javax.swing.JTextField emailInput;
+    public javax.swing.JButton deleteMemberButton;
+    public javax.swing.JTextField emailInput;
     private javax.swing.JLabel emnailLabel;
     private javax.swing.JLabel genderLabel;
-    private javax.swing.JComboBox<String> genderSelector;
-    private javax.swing.JTextField idNumberInput;
+    public javax.swing.JComboBox<String> genderSelector;
+    public javax.swing.JTextField idNumberInput;
     private javax.swing.JLabel idNumberLabel;
     private javax.swing.JLabel idNumberLabel1;
     private javax.swing.ButtonGroup idTypeGroup;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lastNameLabel;
-    private javax.swing.JTextField memberIDInput;
+    public javax.swing.JTextField memberIDInput;
     private javax.swing.JLabel memberIDlabel;
     private javax.swing.JLabel memberImgLabel;
-    private javax.swing.JCheckBox memberStatusCheckBox;
+    public javax.swing.JCheckBox memberStatusCheckBox;
     private javax.swing.JLabel memberStatuslabel;
-    private javax.swing.JTextField nameInput;
-    private javax.swing.JRadioButton nicTypeRadio;
-    private javax.swing.JTextField phoneInput;
+    public javax.swing.JTextField nameInput;
+    public javax.swing.JRadioButton nicTypeRadio;
+    public javax.swing.JTextField phoneInput;
     private javax.swing.JLabel phonelabel;
-    private javax.swing.JButton saveButton;
-    private javax.swing.JRadioButton studentTypeRadio;
-    private javax.swing.JLabel titleLabel;
+    public javax.swing.JButton saveButton;
+    public javax.swing.JRadioButton studentTypeRadio;
+    public javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
