@@ -239,7 +239,7 @@ public class LoginForm extends javax.swing.JFrame {
         });
     }
     
-    private void login(){
+    public void login(){
     String userName = this.userNameInput.getText();
         String password = this.passwordInput.getText();        
         //validating login credentials
@@ -261,9 +261,9 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton loginhButton;
-    private javax.swing.JPasswordField passwordInput;
-    private javax.swing.JButton registerButton;
-    private javax.swing.JTextField userNameInput;
+    public javax.swing.JButton loginhButton;
+    public javax.swing.JPasswordField passwordInput;
+    public javax.swing.JButton registerButton;
+    public javax.swing.JTextField userNameInput;
     // End of variables declaration//GEN-END:variables
 }
