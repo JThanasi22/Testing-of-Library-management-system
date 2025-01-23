@@ -46,8 +46,10 @@ public class MemberDetailsTest {
 
     // Testing for setMember
 
+    // Boundary Value Testing
+
     @Test
-    public void testSetMember_ValidID() throws SQLException {
+    public void testSetMember_MinValue() throws SQLException {
         String validMemberID = "1";
         memberDetails.setMember(validMemberID);
 
@@ -59,7 +61,7 @@ public class MemberDetailsTest {
     }
 
     @Test
-    public void testSetMember_InvalidID() {
+    public void testSetMember_UnderMinValue() {
         String invalidMemberID = "0";
 
         SQLException thrown = assertThrows(SQLException.class, () -> {
@@ -67,6 +69,53 @@ public class MemberDetailsTest {
         });
         assertEquals("Illegal operation on empty result set.", thrown.getMessage(), "Expected exception for invalid ID.");
     }
+
+    @Test
+    public void testSetMember_MaxValue() throws SQLException {
+        String maxValueID = String.valueOf(Integer.MAX_VALUE);
+        memberDetails.setMember(maxValueID);
+
+        assertEquals(maxValueID, memberDetails.memberIDInput.getText(), "Member ID should match the maximum integer value.");
+        assertEquals("Max Integer Member", memberDetails.nameInput.getText(), "Name should match the member with the maximum integer ID.");
+        assertEquals("maxinteger@example.com", memberDetails.emailInput.getText(), "Email should match.");
+        assertTrue(memberDetails.nicTypeRadio.isSelected(), "NIC type should be selected.");
+        assertTrue(memberDetails.memberStatusCheckBox.isSelected(), "Status should be active.");
+    }
+
+    @Test
+    public void testSetMember_AboveMaxValue() {
+        String aboveMaxValueID = String.valueOf((long) Integer.MAX_VALUE + 1);
+
+        SQLException thrown = assertThrows(SQLException.class, () -> {
+            memberDetails.setMember(aboveMaxValueID);
+        });
+        assertEquals("Illegal operation on empty result set.", thrown.getMessage(), "Expected exception for ID above maximum integer value.");
+    }
+
+    // Class Evaluation testing
+
+    @Test
+    public void testSetMember_ValidClass() throws SQLException {
+        String validMemberID = "1";
+        memberDetails.setMember(validMemberID);
+
+        assertEquals(validMemberID, memberDetails.memberIDInput.getText(), "Member ID should match the valid input.");
+        assertEquals("Valid Member", memberDetails.nameInput.getText(), "Name should match the valid member data.");
+        assertEquals("valid@example.com", memberDetails.emailInput.getText(), "Email should match the valid member data.");
+        assertTrue(memberDetails.nicTypeRadio.isSelected(), "NIC type should be selected for valid member.");
+        assertTrue(memberDetails.memberStatusCheckBox.isSelected(), "Status should be active for valid member.");
+    }
+
+    @Test
+    public void testSetMember_InvalidClass() {
+        String invalidMemberID = "0";
+        SQLException thrown = assertThrows(SQLException.class, () -> {
+            memberDetails.setMember(invalidMemberID);
+        });
+        assertEquals("Illegal operation on empty result set.", thrown.getMessage(), "Expected exception for invalid input class.");
+    }
+
+    // Coverage Testing
 
     @Test
     public void testSetMember_NICSelected() throws SQLException {
