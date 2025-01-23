@@ -64,6 +64,29 @@ public class LoginFormTest {
     }
 
     @Test
+    public void testLogin_WrongUsername() {
+        String invalidUsername = "wrongUser";
+        String validPassword = "testPassword";
+
+        loginForm.userNameInput.setText(invalidUsername);
+        loginForm.passwordInput.setText(validPassword);
+        loginForm.login();
+        assertTrue(loginForm.isDisplayable(), "LoginForm should remain visible after failed login due to incorrect username.");
+    }
+
+    @Test
+    public void testLogin_WrongPassword() {
+        String validUsername = "testUser";
+        String invalidPassword = "wrongPassword";
+
+        loginForm.userNameInput.setText(validUsername);
+        loginForm.passwordInput.setText(invalidPassword);
+        loginForm.login();
+        assertTrue(loginForm.isDisplayable(), "LoginForm should remain visible after failed login due to incorrect password.");
+    }
+
+
+    @Test
     public void testLogin_InvalidCredentials() {
         String invalidUsername = "invaliduser";
         String invalidPassword = "invalidpassword";
