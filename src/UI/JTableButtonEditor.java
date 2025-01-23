@@ -79,7 +79,7 @@ public class JTableButtonEditor extends DefaultCellEditor {
     }
 
     @Override
-    protected void fireEditingStopped() {
+    public void fireEditingStopped() {
         super.fireEditingStopped();
     }    
 }

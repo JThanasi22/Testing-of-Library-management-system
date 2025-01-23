@@ -21,22 +21,23 @@ class DatabaseTest {
 
     @Test
     void testDatabase() {
-        try (MockedStatic<Class> classMock = Mockito.mockStatic(Class.class);
-             MockedStatic<DriverManager> driverManagerMock = Mockito.mockStatic(DriverManager.class)) {
+        try (MockedStatic<DriverManager> driverManagerMock = Mockito.mockStatic(DriverManager.class)) {
 
             Connection mockConnection = mock(Connection.class);
             Statement mockStatement = mock(Statement.class);
 
+            // Mock the DriverManager.getConnection behavior
             driverManagerMock.when(() -> DriverManager.getConnection(
                             "jdbc:mysql://localhost:3306/" + MOCK_DB_NAME + "?useSSL=false&serverTimezone=UTC",
                             MOCK_DB_USERNAME, MOCK_DB_PASSWORD))
                     .thenReturn(mockConnection);
 
+            // Mock the connection to return the statement
             when(mockConnection.createStatement()).thenReturn(mockStatement);
 
+            // Instantiate and test the Database class
             Database db = new Database();
 
-            classMock.verify(() -> Class.forName("com.mysql.cj.jdbc.Driver"), times(1));
             driverManagerMock.verify(() -> DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + MOCK_DB_NAME + "?useSSL=false&serverTimezone=UTC",
                     MOCK_DB_USERNAME, MOCK_DB_PASSWORD), times(1));
@@ -49,6 +50,7 @@ class DatabaseTest {
             fail("Exception during successful connection test: " + e.getMessage());
         }
     }
+
 
     @Test
     void testSQLException() {

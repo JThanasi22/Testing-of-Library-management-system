@@ -329,15 +329,26 @@ public class RegisterForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fullNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullNameInputActionPerformed
-        // TODO add your handling code here:
+    public void fullNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullNameInputActionPerformed
+        String fullName = fullNameInput.getText().trim();
+
+        if (fullName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Full name cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_fullNameInputActionPerformed
 
-    private void userNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameInputActionPerformed
-        // TODO add your handling code here:
+    public void userNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameInputActionPerformed
+        String userName = userNameInput.getText().trim();
+
+        if (userName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (userName.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Username must be at least 5 characters long.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_userNameInputActionPerformed
 
-    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+
+    public void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         String fullName = this.fullNameInput.getText();
         String userName = this.userNameInput.getText();
         String password = this.passwordInput.getText();
@@ -403,31 +414,53 @@ public class RegisterForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    private void backToLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToLoginButtonActionPerformed
+    public void backToLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToLoginButtonActionPerformed
         LoginForm welcomeForm = new LoginForm();
         welcomeForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backToLoginButtonActionPerformed
 
     private void repeatPasswordInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repeatPasswordInputActionPerformed
-        // TODO add your handling code here:
+        String repeatPassword = repeatPasswordInput.getText();
+        String password = passwordInput.getText();
+
+        if (!repeatPassword.equals(password)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_repeatPasswordInputActionPerformed
 
     private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordInputActionPerformed
-        // TODO add your handling code here:
+        String password = passwordInput.getText();
+
+        if (password.length() < 8) {
+            JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_passwordInputActionPerformed
 
     private void nicInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nicInputActionPerformed
-        // TODO add your handling code here:
+        String nic = nicInput.getText();
+
+        if (!nic.matches("[0-9]{12}")) {
+            JOptionPane.showMessageDialog(this, "NIC must be 12 digits long.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_nicInputActionPerformed
 
     private void emailInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailInputActionPerformed
-        // TODO add your handling code here:
+        String email = emailInput.getText();
+
+        if (!email.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+            JOptionPane.showMessageDialog(this, "Invalid email format.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_emailInputActionPerformed
 
     private void termsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_termsActionPerformed
-        // TODO add your handling code here:
+        if (terms.isSelected()) {
+            registerButton.setEnabled(true);
+        } else {
+            registerButton.setEnabled(false);
+        }
     }//GEN-LAST:event_termsActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -465,29 +498,29 @@ public class RegisterForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea addressInput;
+    public javax.swing.JTextArea addressInput;
     private javax.swing.JLabel addressLabel;
     private javax.swing.JButton backToLoginButton;
-    private javax.swing.JTextField emailInput;
+    public javax.swing.JTextField emailInput;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JTextField fullNameInput;
+    public javax.swing.JTextField fullNameInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JTextField nicInput;
+    public javax.swing.JTextField nicInput;
     private javax.swing.JLabel nicLabel;
-    private javax.swing.JPasswordField passwordInput;
+    public javax.swing.JPasswordField passwordInput;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel picLabel;
     private javax.swing.JButton registerButton;
     private javax.swing.JLabel repeatPassLabel;
-    private javax.swing.JPasswordField repeatPasswordInput;
-    private javax.swing.JCheckBox terms;
+    public javax.swing.JPasswordField repeatPasswordInput;
+    public javax.swing.JCheckBox terms;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JTextField userNameInput;
+    public javax.swing.JTextField userNameInput;
     private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables
 }

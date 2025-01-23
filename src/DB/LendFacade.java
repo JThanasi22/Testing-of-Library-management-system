@@ -4,10 +4,8 @@
  */
 package DB;
 
-import UI.MainUI;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +26,7 @@ public class LendFacade {
         BookLending bookLending = new BookLending();
         bookLending.insert(lendingData);  
     }  
-    public static void returnBook(int bookID){
+    public static boolean returnBook(int bookID){
         // marking book as available
         Books books = new Books();
         Map bookData = new HashMap<String, String>();
@@ -37,5 +35,6 @@ public class LendFacade {
         //setting lending record as returned
         BookLending bookLending = new BookLending();
         bookLending.return_book(bookID);
-    } 
+        return true;
+    }
 }
