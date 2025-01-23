@@ -25,9 +25,9 @@ public class BookDetails extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    private int bookID;
+    public int bookID;
     
-    private String mode;
+    public String mode;
     /**
      * Set the form mode to new or update
      * @param Mode 
@@ -64,11 +64,10 @@ public class BookDetails extends javax.swing.JFrame {
         
         }
         this.bookID = result.getInt("id");
-//        System.out.println(this.);   
-        
+//        System.out.println(this.);
     }
     
-    private Map bookData = new HashMap<String, String>();
+    public Map bookData = new HashMap<String, String>();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -270,9 +269,9 @@ public class BookDetails extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backToHomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToHomeButtonActionPerformed
+    public void backToHomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToHomeButtonActionPerformed
         MainUI mainUI = new MainUI();
-        mainUI.setVisible(true);        
+        mainUI.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backToHomeButtonActionPerformed
 
@@ -292,7 +291,6 @@ public class BookDetails extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ISBN number can not be empty","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
         if(this.mode.equals("new")){
             this.addBook();
         }else{
@@ -317,7 +315,7 @@ public class BookDetails extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_deleteBookButtonActionPerformed
 
-    private void addBook(){
+    public void addBook(){
         //add biik data to the database        
         this.bookData.put("state","1");
         Books books = new Books();
@@ -327,7 +325,7 @@ public class BookDetails extends javax.swing.JFrame {
         
     }
     
-    private void updateBook(){
+    public void updateBook(){
         Books books = new Books();
         books.update(this.bookData, this.bookID);
         //show a success message
@@ -369,25 +367,25 @@ public class BookDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField authorInput;
+    public javax.swing.JTextField authorInput;
     private javax.swing.JLabel authorLabel;
-    private javax.swing.JButton backToHomeButton;
-    private javax.swing.JComboBox<String> categoryInput;
+    public javax.swing.JButton backToHomeButton;
+    public javax.swing.JComboBox<String> categoryInput;
     private javax.swing.JLabel categoryLabel;
-    private javax.swing.JButton deleteBookButton;
-    private javax.swing.JTextArea descriptionInput;
+    public javax.swing.JButton deleteBookButton;
+    public javax.swing.JTextArea descriptionInput;
     private javax.swing.JLabel descriptionLabel;
-    private javax.swing.JTextField isbnInput;
+    public javax.swing.JTextField isbnInput;
     private javax.swing.JLabel isbnLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> languageInput;
+    public javax.swing.JComboBox<String> languageInput;
     private javax.swing.JLabel languageLabel;
-    private javax.swing.JTextField nameInput;
+    public javax.swing.JTextField nameInput;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JButton saveButton;
-    private javax.swing.JLabel stateLabel;
-    private javax.swing.JLabel stateShowLabel;
-    private javax.swing.JLabel titleLabel;
+    public javax.swing.JButton saveButton;
+    public javax.swing.JLabel stateLabel;
+    public javax.swing.JLabel stateShowLabel;
+    public javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
