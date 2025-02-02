@@ -1,4 +1,5 @@
 import DB.Database;
+import DB.Users;
 import org.junit.jupiter.api.*;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -124,8 +125,8 @@ class DatabaseTest {
     @Test
     void testSingleKeyValuePair() {
         Map<String, String> data = new HashMap<>();
-        data.put("name", "John");
-        Database db = new Database();
+        data.put("fullName", "John");
+        Database db = new Users();
         db.insert(data);
         String expectedQuery = "INSERT INTO `" + db.getTableName() + "`(`name`) VALUES ('John')";
         assertEquals(expectedQuery, db.getLastQuery());
@@ -211,6 +212,116 @@ class DatabaseTest {
 
         String expectedQuery = "UPDATE `" + db.getTableName() + "` SET `name` = 'John' WHERE `id` = " + (Integer.MAX_VALUE + 1) + ";";
         assertEquals(expectedQuery, db.getLastQuery());
+    }
+
+    @Test
+    void testValidUpdateSingleField() {
+        Database db = new Database();
+        Map<String, String> data = new HashMap<>();
+        data.put("name", "John");
+
+        int id = 1;
+        db.update(data, id);
+
+        String expectedQuery = "UPDATE `" + db.getTableName() + "` SET `name` = 'John' WHERE `id` = 1;";
+        assertEquals(expectedQuery, db.getLastQuery(), "Query should match the expected SQL string for a valid update.");
+    }
+
+    @Test
+    void testValidUpdateMultipleFields() {
+        Database db = new Database();
+        Map<String, String> data = new HashMap<>();
+        data.put("name", "John");
+        data.put("email", "john@example.com");
+
+        int id = 42;
+        db.update(data, id);
+
+        String expectedQuery = "UPDATE `" + db.getTableName() + "` SET `name` = 'John',`email` = 'john@example.com' WHERE `id` = 42;";
+        assertEquals(expectedQuery, db.getLastQuery(), "Query should match the expected SQL string for multiple fields.");
+    }
+
+    @Test
+    void testEscapingSpecialCharacters() {
+        Database db = new Database();
+        Map<String, String> data = new HashMap<>();
+        data.put("name", "O'Reilly");
+        data.put("path", "C:\\Users\\Test");
+
+        int id = 100;
+        db.update(data, id);
+
+        String expectedQuery = "UPDATE `" + db.getTableName() + "` SET `name` = 'O''Reilly',`path` = 'C:UsersTest' WHERE `id` = 100;";
+        assertEquals(expectedQuery, db.getLastQuery(), "Special characters should be properly escaped in the query.");
+    }
+
+    @Test
+    void testEmptyDataMap() {
+        Database db = new Database();
+        Map<String, String> data = new HashMap<>();
+
+        int id = 1;
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> db.update(data, id),
+                "An empty data map should throw an IllegalArgumentException.");
+        assertEquals("Data map cannot be empty", exception.getMessage(), "Error message should match.");
+    }
+
+    @Test
+    void testNullDataMap() {
+        Database db = new Database();
+
+        int id = 1;
+
+        Exception exception = assertThrows(NullPointerException.class, () -> db.update(null, id),
+                "A null data map should throw a NullPointerException.");
+        assertEquals("Data map cannot be null", exception.getMessage(), "Error message should match.");
+    }
+
+    @Test
+    void testInvalidIdZero() {
+        Database db = new Database();
+        Map<String, String> data = new HashMap<>();
+        data.put("name", "John");
+
+        int id = 0;
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> db.update(data, id),
+                "An ID of 0 should throw an IllegalArgumentException.");
+        assertEquals("ID must be greater than 0", exception.getMessage(), "Error message should match.");
+    }
+
+    @Test
+    void testInvalidNegativeId() {
+        Database db = new Database();
+        Map<String, String> data = new HashMap<>();
+        data.put("name", "John");
+
+        int id = -5;
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> db.update(data, id),
+                "A negative ID should throw an IllegalArgumentException.");
+        assertEquals("ID must be greater than 0", exception.getMessage(), "Error message should match.");
+    }
+
+    @Test
+    void testLargeDataMap() {
+        Database db = new Database();
+        Map<String, String> data = new HashMap<>();
+        for (int i = 1; i <= 100; i++) {
+            data.put("col" + i, "value" + i);
+        }
+
+        int id = 1;
+        db.update(data, id);
+
+        StringBuilder expectedQuery = new StringBuilder("UPDATE `" + db.getTableName() + "` SET ");
+        for (int i = 1; i <= 100; i++) {
+            expectedQuery.append("`col").append(i).append("` = 'value").append(i).append("',");
+        }
+        expectedQuery.deleteCharAt(expectedQuery.length() - 1); // Remove trailing comma
+        expectedQuery.append(" WHERE `id` = 1;");
+        assertEquals(expectedQuery.toString(), db.getLastQuery(), "Query should match for a large data map.");
     }
 
 
